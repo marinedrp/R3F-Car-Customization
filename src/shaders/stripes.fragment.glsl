@@ -1,8 +1,12 @@
-uniform float time;
-uniform vec3 color;
 varying vec2 vUv;
+uniform float uMultiplier;
+uniform float uAlpha;
+uniform vec3 uColorA;
+uniform vec3 uColorB;
 
 void main() {
-    float strength = vUv.x;
-    gl_FragColor.rgba = vec4(vec3(strength), 1.0);
+    vec2 mulvUv = mod(vUv * uMultiplier, 1.0); 
+    float strength = step(0.5, mulvUv.y);
+    vec3 mixColor = mix(uColorA, uColorB, step(0.5, mod(vUv.y * uMultiplier / 2.0, 1.0)));
+    gl_FragColor.rgba = vec4(mixColor, min(strength, uAlpha));
 }
