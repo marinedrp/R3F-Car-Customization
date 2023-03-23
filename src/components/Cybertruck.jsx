@@ -39,11 +39,19 @@ const DisksShaderMaterial = shaderMaterial(
   disksFragment
 );
 
+console.log("Hello!")
+
 extend({ StripesShaderMaterial });
 extend({ DisksShaderMaterial });
 
 export function Cybertruck(props) {
   const { nodes, materials } = useGLTF("./models/cybertruck.gltf");
+
+  const { shader } = useControls({
+    shader: {
+      options: ["none", "disks", "stripes"],
+    },
+  });
 
   const disksControls = useControls("disks", {
     alpha: {
@@ -118,6 +126,7 @@ export function Cybertruck(props) {
         castShadow
       />
       {/* BODY MESH -> SHADER */}
+      {shader === "disks" && (
         <mesh geometry={nodes.interior001_6.geometry}>
           <disksShaderMaterial
             ref={ref}
@@ -128,7 +137,9 @@ export function Cybertruck(props) {
             uColorB={disksControls.colorB}
           />
         </mesh>
-        {/* <mesh geometry={nodes.interior001_6.geometry}>
+      )}
+      {shader === "stripes" && (
+        <mesh geometry={nodes.interior001_6.geometry}>
           <stripesShaderMaterial
             ref={ref}
             transparent
@@ -137,7 +148,8 @@ export function Cybertruck(props) {
             uColorA={stripesControls.colorA}
             uColorB={stripesControls.colorB}
           />
-        </mesh> */}
+        </mesh>
+      )}
 
       <mesh geometry={nodes.steer.geometry} material={materials.gray} />
       <mesh
