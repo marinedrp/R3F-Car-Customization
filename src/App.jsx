@@ -1,3 +1,4 @@
+import { Stats } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Experience } from "./components/Experience";
@@ -5,6 +6,7 @@ function App() {
   return (
     <Canvas shadows camera={{ position: [0, 3, 9], fov: 42 }}>
       <color attach="background" args={["#15151a"]} />
+      <Stats />
       <Experience />
       <EffectComposer>
         <Bloom

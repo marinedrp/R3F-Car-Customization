@@ -107,7 +107,7 @@ export const Experience = () => {
 
       <hemisphereLight intensity={0.5} />
       <ContactShadows
-        resolution={1024}
+        resolution={512}
         frames={300}
         position={[0, -1.16, 0]}
         scale={15}
